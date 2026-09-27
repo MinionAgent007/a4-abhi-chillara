@@ -46,7 +46,9 @@ passport.use(new GitHubStrategy({
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       // Uses a live URL in production, or localhost when testing on your computer
-      callbackURL: process.env.GITHUB_CALLBACK_URL || "https://a4-abhi-chillara.onrender.com/auth/github/callback"
+      callbackURL: process.env.GITHUB_CALLBACK_URL || "https://a4-abhi-chillara.onrender.com/auth/github/callback",
+
+      proxy:true
     },
     (accessToken, refreshToken, profile, done) => done(null, profile)
 ));
