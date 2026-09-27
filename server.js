@@ -12,7 +12,9 @@ const express = require( 'express' ),
       morgan = require('morgan'),
       compression = require('compression'),
       cookieParser = require('cookie-parser'),
-      rateLimit = require('express-rate-limit');
+      rateLimit = require('express-rate-limit'),
+
+      path = require('path');
 
 require('dotenv').config({path:'.env/credentials.env'});
 console.log('URI: ' + process.env.MONGODB_URI);
@@ -159,6 +161,12 @@ app.delete('/delete', checkAuth, async (req, res) => {
 
   const notesData = await collection.find({user: req.user.id}).toArray();
   res.json(notesData);
+})
+
+app.use(express.static(path.join(__dirname, 'client/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/dist/', 'index.html'));
 })
 
 // start server
