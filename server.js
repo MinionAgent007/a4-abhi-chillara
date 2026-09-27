@@ -57,8 +57,8 @@ passport.deserializeUser((user, done) => done(null, user));
 // auth routes
 app.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }));
 app.get('/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: 'http://localhost:5173/' }),
-    (req, res) => res.redirect('http://localhost:5173/')
+    passport.authenticate('github', { failureRedirect: '/' }),
+    (req, res) => res.redirect('/')
 );
 
 const checkAuth = (req, res, next) => {
@@ -88,7 +88,7 @@ connectDB();
 app.get('/logout', (req, res, next) => {
   req.logout((err) => {
     if (err) { return next(err); }
-    res.redirect('http://localhost:5173/');
+    res.redirect('/');
   });
 });
 
